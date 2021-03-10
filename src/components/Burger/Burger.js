@@ -10,8 +10,6 @@ const burger = props => {
     });
   });
 
-  console.log('resultat : ', transformIngredients);
-
   if (transformIngredients.length === 0) {
     transformIngredients = <p>Please start adding ingredients!</p>;
   }

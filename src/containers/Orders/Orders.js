@@ -16,6 +16,7 @@ class Orders extends React.Component {
       const fetcheOrders = [];
       for (let key in orders.data) {
         fetcheOrders.push({ ...orders.data[key], id: key });
+        console.log(orders.data[key]);
       }
       this.setState({ loading: false, orders: fetcheOrders });
     } catch (error) {
@@ -26,8 +27,13 @@ class Orders extends React.Component {
   render() {
     return (
       <div>
-        <Order />
-        <Order />
+        {this.state.orders.map(order => (
+          <Order
+            key={order.id}
+            ingredients={order.ingredients}
+            price={+order.price}
+          />
+        ))}
       </div>
     );
   }

@@ -16,7 +16,6 @@ class Orders extends React.Component {
       const fetcheOrders = [];
       for (let key in orders.data) {
         fetcheOrders.push({ ...orders.data[key], id: key });
-        console.log(orders.data[key]);
       }
       this.setState({ loading: false, orders: fetcheOrders });
     } catch (error) {

@@ -4,14 +4,61 @@ import axios from './../../../axios-orders';
 import Spinner from './../../../components/UI/Spinner/Spinner';
 import style from './ContactData.module.css';
 import Button from './../../../components/UI/Button/Button';
+import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends React.Component {
   state = {
-    name: ' ',
-    email: '',
-    adress: {
-      street: '',
-      postalCode: '',
+    orderForm: {
+      name: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Your Name',
+        },
+        value: '',
+      },
+      street: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Street',
+        },
+        value: '',
+      },
+      zipCode: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'ZIP Code',
+        },
+        value: '',
+      },
+      country: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Country',
+        },
+        value: '',
+      },
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Your E-Mail',
+        },
+        value: '',
+      },
+      deliveryMethod: {
+        elementType: 'select',
+        elementConfig: {
+          options: [
+            { value: 'fastest', disableValue: 'Fastest' },
+            { value: 'cheapest', disableValue: 'cheapest' },
+          ],
+        },
+        value: '',
+      },
     },
     loading: false,
   };
@@ -22,16 +69,6 @@ class ContactData extends React.Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: 'Sarah Lachiheb',
-        adress: {
-          street: 'street 1',
-          zipCode: '1111',
-          country: 'France',
-        },
-        email: 'test@test.com',
-      },
-      deliveryMethod: 'fastest',
     };
     try {
       await axios.post('/orders.json', order);
@@ -45,26 +82,21 @@ class ContactData extends React.Component {
   render() {
     let form = (
       <form>
-        <input
-          className={style.Input}
-          type="text"
-          name="name"
-          placeholder="Your Name"
-        />
-        <input
-          className={style.Input}
+        <Input elementType="..." elementConfig="..." value="..." />
+        <Input
+          inputtype="input"
           type="text"
           name="email"
           placeholder="Your Mail"
         />
-        <input
-          className={style.Input}
+        <Input
+          inputtype="input"
           type="text"
           name="street"
           placeholder="Street"
         />
-        <input
-          className={style.Input}
+        <Input
+          inputtype="input"
           stype="text"
           name="postal"
           placeholder="Postal Code"

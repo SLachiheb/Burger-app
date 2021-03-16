@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from './Order.module..css';
+import style from './Order.module.css';
 
 const order = props => (
   <div className={style.Order}>

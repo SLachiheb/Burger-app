@@ -53,8 +53,8 @@ class ContactData extends React.Component {
         elementType: 'select',
         elementConfig: {
           options: [
-            { value: 'fastest', disableValue: 'Fastest' },
-            { value: 'cheapest', disableValue: 'cheapest' },
+            { value: 'fastest', displayValue: 'Fastest' },
+            { value: 'cheapest', displayValue: 'cheapest' },
           ],
         },
         value: '',
@@ -79,6 +79,14 @@ class ContactData extends React.Component {
     this.props.history.push('/');
   };
 
+  inputChangedHandler = (e, inputIdentifier) => {
+    const updateOrderForm = { ...this.state.orderForm };
+    const updateFormElement = { ...updateOrderForm[inputIdentifier] };
+    updateFormElement.value = e.target.value;
+    updateOrderForm[inputIdentifier] = updateFormElement;
+    this.setState({ orderForm: updateOrderForm });
+  };
+
   render() {
     const formElementsArray = [];
     for (let key in this.state.orderForm) {
@@ -95,6 +103,7 @@ class ContactData extends React.Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            changed={e => this.inputChangedHandler(e, formElement.id)}
           />
         ))}
         <Button btnType="Success" clicked={this.orderHandler}>

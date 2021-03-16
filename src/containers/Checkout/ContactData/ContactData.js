@@ -16,6 +16,10 @@ class ContactData extends React.Component {
           placeholder: 'Your Name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       street: {
         elementType: 'input',
@@ -24,6 +28,10 @@ class ContactData extends React.Component {
           placeholder: 'Street',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       zipCode: {
         elementType: 'input',
@@ -32,6 +40,12 @@ class ContactData extends React.Component {
           placeholder: 'ZIP Code',
         },
         value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5,
+        },
+        valid: false,
       },
       country: {
         elementType: 'input',
@@ -40,6 +54,10 @@ class ContactData extends React.Component {
           placeholder: 'Country',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       email: {
         elementType: 'input',
@@ -48,6 +66,10 @@ class ContactData extends React.Component {
           placeholder: 'Your E-Mail',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -88,10 +110,32 @@ class ContactData extends React.Component {
     this.props.history.push('/');
   };
 
+  checkValidation(value, rules) {
+    let isValid = true;
+
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+
+    return isValid;
+  }
+
   inputChangedHandler = (e, inputIdentifier) => {
     const updateOrderForm = { ...this.state.orderForm };
     const updateFormElement = { ...updateOrderForm[inputIdentifier] };
     updateFormElement.value = e.target.value;
+    updateFormElement.valid = this.checkValidation(
+      updateFormElement.value,
+      updateFormElement.validation
+    );
     updateOrderForm[inputIdentifier] = updateFormElement;
     this.setState({ orderForm: updateOrderForm });
   };
